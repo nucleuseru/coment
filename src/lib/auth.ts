@@ -9,7 +9,7 @@ export interface ICreateAuthOptions {
 
 export const createAuth = (opts: ICreateAuthOptions) => {
   return betterAuth({
-    trustedOrigins: ["http://localhost:3000"],
+    trustedOrigins: [process.env.CLIENT_ORIGIN || "http://localhost:3000"],
     database: drizzleAdapter(opts.db, {
       provider: "pg",
       transaction: true,
