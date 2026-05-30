@@ -8,7 +8,8 @@
     "dev": "fastify start -l info -r ts-node/register -r tsconfig-paths/register -w -P src/app.ts --options",
     "dev:client": "vite",
     "preview": "vite preview",
-    "build:client": "tsc -p ./src/client/tsconfig.json && vite build"
+    "build:client": "tsc -p ./src/client/tsconfig.json && vite build",
+    "db:migrate": "drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",
