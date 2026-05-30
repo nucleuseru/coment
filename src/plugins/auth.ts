@@ -12,7 +12,12 @@ export default fp(async (fastify) => {
     const pathname = new URL(request.url, `http://${request.headers.host}`)
       .pathname;
 
-    if (pathname.startsWith("/api/auth") || pathname === "/") return;
+    if (
+      pathname === "/" ||
+      !pathname.startsWith("/api") ||
+      pathname.startsWith("/api/auth")
+    )
+      return;
 
     const session = await getSession(auth, request);
 
