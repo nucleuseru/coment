@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1780070559689,
+      "tag": "0000_previous_mesmero",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1780071448746,
+      "tag": "0001_equal_franklin_richards",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1780072131564,
+      "tag": "0002_outstanding_gladiator",
+      "breakpoints": true
+    }
+  ]
+}
