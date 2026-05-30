@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter, type DB } from "better-auth/adapters/drizzle";
 import { fromNodeHeaders } from "better-auth/node";
 import { FastifyRequest } from "fastify";
+import { openAPI } from "better-auth/plugins";
 
 export interface ICreateAuthOptions {
   db: DB;
@@ -21,6 +22,7 @@ export const createAuth = (opts: ICreateAuthOptions) => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
       },
     },
+    plugins: [openAPI()],
   });
 };
 
