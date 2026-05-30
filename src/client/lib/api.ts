@@ -8,7 +8,7 @@ export async function apiRequest<T = unknown>(
   const response = await fetch(url, {
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
       ...options.headers,
     },
     credentials: "include",

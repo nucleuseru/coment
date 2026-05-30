@@ -6,7 +6,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
   build: {
-    outDir: "build",
+    outDir: "dist/client",
   },
   resolve: {
     tsconfigPaths: true,

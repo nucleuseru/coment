@@ -17,7 +17,7 @@ export default async function app(
   opts: AppOptions,
 ): Promise<void> {
   void fastify.register(Static, {
-    root: path.join(process.cwd(), "build"),
+    root: path.join(process.cwd(), "dist/client"),
   });
 
   void fastify.register(AutoLoad, {
