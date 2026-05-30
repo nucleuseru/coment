@@ -1,7 +1,12 @@
 import { AutoloadPluginOptions } from "@fastify/autoload";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
-import { FastifyBaseLogger, FastifyInstance, RawServerDefault } from "fastify";
-import { IncomingMessage, ServerResponse } from "node:http";
+import {
+  FastifyBaseLogger,
+  FastifyHttpOptions,
+  FastifyInstance,
+  RawServerDefault,
+} from "fastify";
+import { IncomingMessage, Server, ServerResponse } from "node:http";
 
 export type AppFastifyInstance = FastifyInstance<
   RawServerDefault,
@@ -11,4 +16,5 @@ export type AppFastifyInstance = FastifyInstance<
   TypeBoxTypeProvider
 >;
 
-export type AppOptions = {} & Partial<AutoloadPluginOptions>;
+export type AppOptions = Partial<AutoloadPluginOptions> &
+  FastifyHttpOptions<Server>;

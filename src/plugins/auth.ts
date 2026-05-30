@@ -14,6 +14,7 @@ export default fp(
         .pathname;
 
       if (
+        request.method === "OPTIONS" ||
         pathname === "/" ||
         !pathname.startsWith("/api") ||
         pathname.startsWith("/api/auth")

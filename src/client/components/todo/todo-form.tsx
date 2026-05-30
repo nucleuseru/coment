@@ -34,7 +34,7 @@ export function TodoForm({ onSubmit, isSubmitting }: TodoFormProps) {
       <Button
         type="submit"
         disabled={isSubmitting || !task.trim()}
-        className="h-10 px-4 rounded-none border border-border bg-background hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-150 font-mono text-xs font-semibold shrink-0"
+        className="text-foreground h-10 px-4 rounded-none border border-border bg-background hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-150 font-mono text-xs font-semibold shrink-0"
       >
         <PlusIcon className="h-4 w-4 mr-1" /> Add
       </Button>

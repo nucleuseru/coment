@@ -1,8 +1,8 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter, type DB } from "better-auth/adapters/drizzle";
 import { fromNodeHeaders } from "better-auth/node";
-import { FastifyRequest } from "fastify";
 import { openAPI } from "better-auth/plugins";
+import { FastifyRequest } from "fastify";
 
 export interface ICreateAuthOptions {
   db: DB;
@@ -10,7 +10,7 @@ export interface ICreateAuthOptions {
 
 export const createAuth = (opts: ICreateAuthOptions) => {
   return betterAuth({
-    trustedOrigins: [process.env.CLIENT_ORIGIN || "http://localhost:3000"],
+    trustedOrigins: [process.env.SITE_URL ?? ""],
     database: drizzleAdapter(opts.db, {
       provider: "pg",
       transaction: true,
