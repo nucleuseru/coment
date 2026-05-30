@@ -31,7 +31,29 @@ export function TodoContainer() {
         method: "POST",
         body: JSON.stringify({ task }),
       }),
-    onSuccess: () => {
+    onMutate: async (task: string) => {
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const previousTodos = queryClient.getQueryData<Todo[]>(["todos"]) || [];
+
+      const newTodo: Todo = {
+        id: -Date.now() - Math.floor(Math.random() * 1000),
+        userId: "",
+        task,
+        completed: false,
+        createdAt: new Date().toISOString(),
+        updatedAt: null,
+      };
+
+      queryClient.setQueryData<Todo[]>(["todos"], (old = []) => [...old, newTodo]);
+
+      return { previousTodos };
+    },
+    onError: (_err, _task, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData(["todos"], context.previousTodos);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
@@ -42,12 +64,26 @@ export function TodoContainer() {
         method: "PUT",
         body: JSON.stringify({ completed }),
       }),
-    onMutate: ({ id }) => {
+    onMutate: async ({ id, completed }) => {
       setTogglingIds((prev) => {
         const next = new Set(prev);
         next.add(id);
         return next;
       });
+
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const previousTodos = queryClient.getQueryData<Todo[]>(["todos"]);
+
+      queryClient.setQueryData<Todo[]>(["todos"], (old = []) =>
+        old.map((todo) => (todo.id === id ? { ...todo, completed } : todo)),
+      );
+
+      return { previousTodos };
+    },
+    onError: (_err, _variables, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData(["todos"], context.previousTodos);
+      }
     },
     onSettled: (_, __, { id }) => {
       setTogglingIds((prev) => {
@@ -55,8 +91,6 @@ export function TodoContainer() {
         next.delete(id);
         return next;
       });
-    },
-    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
@@ -66,12 +100,26 @@ export function TodoContainer() {
       apiRequest(`/api/todos/${id}`, {
         method: "DELETE",
       }),
-    onMutate: (id) => {
+    onMutate: async (id) => {
       setDeletingIds((prev) => {
         const next = new Set(prev);
         next.add(id);
         return next;
       });
+
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const previousTodos = queryClient.getQueryData<Todo[]>(["todos"]);
+
+      queryClient.setQueryData<Todo[]>(["todos"], (old = []) =>
+        old.filter((todo) => todo.id !== id),
+      );
+
+      return { previousTodos };
+    },
+    onError: (_err, _id, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData(["todos"], context.previousTodos);
+      }
     },
     onSettled: (_, __, id) => {
       setDeletingIds((prev) => {
@@ -79,8 +127,6 @@ export function TodoContainer() {
         next.delete(id);
         return next;
       });
-    },
-    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
@@ -111,7 +157,7 @@ export function TodoContainer() {
       {/* Form area */}
       <TodoForm
         onSubmit={handleCreate}
-        isSubmitting={createMutation.isPending}
+        isSubmitting={false}
       />
 
       {/* Filter tab bar */}

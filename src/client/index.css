@@ -120,10 +120,9 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html,
   body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-mono;
+    @apply font-mono bg-background text-foreground w-full h-full overflow-x-hidden;
   }
 }
