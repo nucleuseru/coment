@@ -1,10 +1,10 @@
 {
   "name": "coment",
   "version": "1.0.0",
-  "main": "app.ts",
+  "main": "src/app.ts",
   "scripts": {
-    "build": "rm -fr dist && tsc && tsc-alias",
     "start": "fastify start -l info dist/app.js",
+    "build": "rm -fr dist && tsc && tsc-alias && npm run build:client",
     "dev": "fastify start -l info -r ts-node/register -r tsconfig-paths/register -w -P src/app.ts",
     "dev:client": "vite",
     "preview": "vite preview",
@@ -22,6 +22,7 @@
     "@fastify/type-provider-typebox": "^6.1.0",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@phosphor-icons/react": "^2.1.10",
+    "@tanstack/react-query": "^5.100.14",
     "better-auth": "^1.6.11",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -35,12 +36,14 @@
     "react-dom": "^19.2.6",
     "shadcn": "^4.8.3",
     "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.0",
     "tw-animate-css": "^1.4.0",
     "typebox": "^1.1.39"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@rolldown/plugin-babel": "^0.2.3",
+    "@tailwindcss/postcss": "^4.3.0",
     "@types/babel__core": "^7.20.5",
     "@types/node": "^25.0.3",
     "@types/pg": "^8.20.0",
@@ -52,7 +55,6 @@
     "drizzle-kit": "^0.31.10",
     "fastify-tsconfig": "^3.0.0",
     "postcss": "^8.5.15",
-    "tailwindcss": "^3.4.19",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.17",
     "tsconfig-paths": "^4.2.0",

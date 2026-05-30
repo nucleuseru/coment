@@ -22,6 +22,20 @@
       "when": 1780072131564,
       "tag": "0002_outstanding_gladiator",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1780159359444,
+      "tag": "0003_cuddly_wendell_rand",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1780161854560,
+      "tag": "0004_jazzy_meltdown",
+      "breakpoints": true
     }
   ]
 }
